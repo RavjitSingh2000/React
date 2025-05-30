@@ -67,6 +67,15 @@
     background-color: #F5F5F5;
 }
 
+.span-arrow {
+    rotate: 0;
+    transition: rotate 0.3s;
+}
+
+.span-arrow-selected {
+    rotate: 180deg;
+}
+
 .accordion-item-question-wrapper {
     display: flex;
     flex-direction: row;

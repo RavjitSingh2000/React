@@ -9,8 +9,8 @@ function Accordion() {
 
     function handleSingleItemSelect(getItemId) {
         let selected;
-        if (getItemId === selectedItem) { 
-            selected = null; 
+        if (getItemId === selectedItem) {
+            selected = null;
         } else {
             selected = getItemId
         }
@@ -21,21 +21,20 @@ function Accordion() {
     const [multipleSelect, setMultipleSelect] = useState(false);
     const [multipleItems, setMultipleItems] = useState([]);
 
-    function handleMultipleItemSelection(){
+    function handleMultipleItemSelection() {
         setMultipleSelect(!multipleSelect);
-        console.log(multipleSelect);
     }
 
-    function handleMultipleItemSelect(getItemId){
+    function handleMultipleItemSelect(getItemId) {
         let multipleItemsClone = [...multipleItems];
         const indexOfCurrentItem = multipleItemsClone.indexOf(getItemId);
 
-        if(indexOfCurrentItem === -1){
+        if (indexOfCurrentItem === -1) {
             multipleItemsClone.push(getItemId);
         } else {
             multipleItemsClone.splice(indexOfCurrentItem, 1);
         }
-        console.log(multipleItems);
+        setMultipleItems(multipleItemsClone);
     }
 
     return (
@@ -43,10 +42,10 @@ function Accordion() {
             <h2>ACCORDION</h2>
             <div className="accordion-wrapper">
                 <span className="accordion-wrapper-span">
-                    <button 
-                    onClick={()=>{handleMultipleItemSelection()}}
-                    className={multipleSelect ? `color-green`:`color-red`}
-                    >{multipleSelect ? `Enable multi Select`:`Disable multi select`}</button>
+                    <button
+                        onClick={() => { handleMultipleItemSelection() }}
+                        className={multipleSelect ? `color-green` : `color-red`}
+                    >{multipleSelect ? `Enable multi Select` : `Disable multi select`}</button>
                 </span>
                 {
                     data && data.length > 0 ? (
@@ -54,16 +53,16 @@ function Accordion() {
                         (<section className="accordion-item" key={dataItem.key}>
                             <div
                                 className="accordion-item-question-wrapper"
-                                onClick={ multipleSelect ?
-                                    () => handleSingleItemSelect(dataItem.id):
+                                onClick={multipleSelect ?
+                                    () => handleSingleItemSelect(dataItem.id) :
                                     () => handleMultipleItemSelect(dataItem.id)
                                 }
                             >
                                 <h3 className="accordion-item-question">{dataItem.id + ". "}{dataItem.question}</h3>
-                                <span>^</span>
+                                <span className={selectedItem === dataItem.id || multipleItems.indexOf(dataItem.id) == dataItem.id ? `span-arrow span-arrow-selected` : `span-arrow`}>^</span>
                             </div>
                             {
-                                selectedItem === dataItem.id ?
+                                selectedItem === dataItem.id || multipleItems.indexOf(dataItem.id) == -1 ?
                                     (
                                         <p className="accordion-item-answer">{dataItem.answer}</p>
                                     ) : null
