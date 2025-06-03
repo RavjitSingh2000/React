@@ -1,0 +1,35 @@
+.main-container{
+    height: 100vh;
+    width: auto;
+    display: block;
+    border-top: 2px solid black;
+    padding-top: 1rem;
+}
+
+.main-nav {
+    float: left;
+    width: 20%;
+    height: 100vh;
+    background-color: cyan;
+    display: block;
+}
+
+.main-nav > ul {
+    display: block;
+    flex-direction: column;
+    margin-top: 2rem;
+}
+
+.main-nav > ul > li {
+    list-style: none;
+    margin-bottom: 1rem;
+}
+
+.main-nav > ul > li > button {
+    font-size: x-large;
+    font-family: monospace;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: none;
+    width: 100%;
+}
