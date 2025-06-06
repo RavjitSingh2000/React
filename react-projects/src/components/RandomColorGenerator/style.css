@@ -35,7 +35,7 @@ button:hover {
 }
 
 button:active {
-    border-color: red;
+    border: 2px solid red;
 }
 
 .main-container>section {
