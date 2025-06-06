@@ -1,35 +1,60 @@
-.main-container{
+.main-container {
     height: 100vh;
     width: auto;
-    display: block;
+    display: flex;
+    flex-direction: row;
     border-top: 2px solid black;
     padding-top: 1rem;
 }
 
 .main-nav {
     float: left;
-    width: 20%;
-    height: 100vh;
-    background-color: cyan;
-    display: block;
-}
-
-.main-nav > ul {
-    display: block;
+    width: 25%;
+    height: 98vh;
+    background-color: black;
+    display: flex;
     flex-direction: column;
-    margin-top: 2rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    margin-right: 1rem;
 }
 
-.main-nav > ul > li {
-    list-style: none;
-    margin-bottom: 1rem;
-}
-
-.main-nav > ul > li > button {
-    font-size: x-large;
+.main-nav>button {
+    padding: 0.4rem;
+    width: 90%;
+    margin: 0.2rem;
+    border: 0;
+    border-radius: 4px;
     font-family: monospace;
+    font-size: x-large;
+}
+
+button:hover {
+    background-color: darkgray;
+}
+
+button:active {
+    border-color: red;
+}
+
+.main-container>section {
+    border: 2px solid black;
+    width: 74%;
+    height: 98vh;
+    border-radius: 1rem;
+}
+
+section>header {
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    font: bolder;
+    font-size: x-large;
+    background-color: white;
     padding: 0.5rem;
-    border-radius: 8px;
-    border: none;
-    width: 100%;
 }
