@@ -26,7 +26,8 @@ export default function RandomColorGenerator() {
                 <button onClick={() => setColorType('rgb')}>Generate RGB Colors</button>
             </nav>
             <section style={{
-                backgroundColor: defColor
+                backgroundColor: defColor,
+                transition: 'background-color 0.5s ease'
             }}>
                 <header>
                     <span>Color type: {colorType}</span>
