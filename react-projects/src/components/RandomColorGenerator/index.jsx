@@ -21,6 +21,7 @@ export default function RandomColorGenerator() {
     return (
         <div className="main-container">
             <nav className="main-nav">
+                <p>Random Color Generator</p>
                 <button onClick={() => handleRandomColor()}>Generate Random Color</button>
                 <button onClick={() => setColorType('hex')}>Genrate Hex Color</button>
                 <button onClick={() => setColorType('rgb')}>Generate RGB Colors</button>
