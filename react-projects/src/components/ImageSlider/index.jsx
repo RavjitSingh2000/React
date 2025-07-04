@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import "./style.css";
+import "./image-slider-style.css";
 
 export default function ImageSlider() {
 
@@ -24,9 +24,18 @@ export default function ImageSlider() {
         }
     }
 
+    function handleNextImage() {
+        setCurrentSlide(currentSlide === images.length - 1 ? 0 : currentSlide + 1);
+    }
+
+    function handlePreviousImage() {
+        setCurrentSlide(currentSlide === 0 ? images.length - 1 : currentSlide - 1);
+    }
+
     useEffect(() => {
         imageApiFetch();
     }, [])
+
 
     return (
         <main className="main-wrapper">
@@ -34,10 +43,20 @@ export default function ImageSlider() {
             <ul>
                 {isLoading ? images.map((img, index) => (
                     <li key={index}>
-                        <img className="img-dimensions" src={`${img.download_url}`} alt={`${img.author}`} />
+                        <img
+                            className={currentSlide === index ? "img-dimensions" : "hide-image"}
+                            key={`${img.id}`}
+                            src={`${img.download_url}`}
+                            alt={`${img.author}`}
+                        />
                     </li>
                 )) : <Loading />}
             </ul>
+            <section>
+                <button onClick={()=>{handlePreviousImage()}}>Previous</button>
+                <span>{`${currentSlide}/${images.length}`}</span>
+                <button onClick={()=>{handleNextImage()}}>Next</button>
+            </section>
         </main>
     );
 }
