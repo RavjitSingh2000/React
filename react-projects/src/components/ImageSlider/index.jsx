@@ -1,37 +1,45 @@
-import { Suspense, useEffect, useState } from "react"
-
+import { useEffect, useState } from "react"
+import "./style.css";
 
 export default function ImageSlider() {
 
     const [images, setImages] = useState([]);
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [isLoading, setIsLoading] = useState(null);
 
-    useEffect(async () => {
-        const res = await fetch(`https://picsum.photos/v2/list/seed/picsum/200&limit=10`);
-        const data = await res.json();
+    async function imageApiFetch() {
+        try {
+            const response = await fetch(`https://picsum.photos/v2/list?page=2&limit=8`);
+            if (!response.ok) {
+                setIsLoading(false);
+                throw new Error(`Response status: ${response.status}`);
+            }
 
-        if (data) {
-            setImages(data);
-            console.log(data);
-            
-        } else {
-            console.log("Error loading images");
+            const json = await response.json();
+            setImages(json);
+            setIsLoading(true);
+        } catch (error) {
+            console.error(error.message);
+            setIsLoading(false);
         }
+    }
+
+    useEffect(() => {
+        imageApiFetch();
     }, [])
 
     return (
         <main className="main-wrapper">
-            <Suspense fallback={<Loading/>}>
-                <ul>
-                    {
-                        images.map((img, index)=>{
-                            return <li><img src={""}></img></li>
-                        })
-                    }
-                </ul>
-            </Suspense>
+            <h2>IMAGE SLIDER</h2>
+            <ul>
+                {isLoading ? images.map((img, index) => (
+                    <li key={index}>
+                        <img className="img-dimensions" src={`${img.download_url}`} alt={`${img.author}`} />
+                    </li>
+                )) : <Loading />}
+            </ul>
         </main>
-    )
+    );
 }
 
 function Loading() {
