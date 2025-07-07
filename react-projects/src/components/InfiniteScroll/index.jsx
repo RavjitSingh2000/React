@@ -4,35 +4,48 @@ import { useEffect, useState } from "react";
 export default function InfiniteScroll() {
 
     const [products, setProducts] = useState([]);
-    const [isLoading, setIsLoading] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const [count, setCount] = useState(0);
 
     async function productsApiFetch() {
         try {
-            const response = await fetch(`https://dummyjson.com/products?limit=10&skip=${count === 0 ? 0 : count * 10}&select=title,price,description`);
-            if (!response.ok) {
-                setIsLoading(false);
-                throw new Error(`Response status: ${response.status}`);
-            }
+            setIsLoading(true); // start loading
+            const response = await fetch(`https://dummyjson.com/products?limit=10&skip=${count * 10}&select=title,price,description`);
+            if (!response.ok) throw new Error(`Response status: ${response.status}`);
 
             const json = await response.json();
-            setProducts(json);
-            setIsLoading(true);
+            setProducts((prevData) => [...prevData, ...json.products]);
         } catch (error) {
             console.error(error.message);
-            setIsLoading(false);
+        } finally {
+            setIsLoading(false); // stop loading
         }
+
     }
 
     useEffect(() => {
         productsApiFetch();
-    }, [])
+    }, [count])
 
     return (
-        <div>index</div>
+        <div>
+            <h2>INFINITE SCROLL</h2>
+            <div className="container">
+                {
+                    products.map((product) => (
+                        <article key={product.id}>
+                            <h4 className="text-title">{product.id}. {product.title}</h4>
+                            <p className="text-body">{product.description}</p>
+                        </article>
+                    ))
+                }
+                {isLoading ? <Loading /> : null}
+            </div>
+            <button onClick={() => setCount(count + 1)}>Load more content</button>
+        </div>
     )
 }
 
 function Loading() {
-    return <h2>🌀 Loading...</h2>;
+    return <span>🌀 Loading...</span>;
 }
