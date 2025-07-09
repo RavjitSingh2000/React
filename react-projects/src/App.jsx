@@ -3,6 +3,8 @@ import ImageSlider from "./components/ImageSlider"
 import InfiniteScroll from "./components/InfiniteScroll"
 import RandomColorGenerator from "./components/RandomColorGenerator"
 import StarRating from "./components/StarRating"
+import TreeView from "./components/TreeView"
+import { menuData } from "./components/TreeView/data"
 
 function App() {
 
@@ -13,6 +15,7 @@ function App() {
       <StarRating />
       <ImageSlider />
       <InfiniteScroll />
+      <TreeView menus={menuData} />
     </>
   )
 }
