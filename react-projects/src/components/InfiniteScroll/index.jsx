@@ -1,11 +1,12 @@
 import "./infinite-scroll.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function InfiniteScroll() {
 
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [count, setCount] = useState(0);
+    const initialLoad = useRef(true);
 
     async function productsApiFetch() {
         try {
@@ -24,8 +25,13 @@ export default function InfiniteScroll() {
     }
 
     useEffect(() => {
-        productsApiFetch();
-    }, [count])
+        if (initialLoad.current) {
+            initialLoad.current = false;
+            productsApiFetch(); //run only once on first render
+        } else if (count > 0) {
+            productsApiFetch(); //run on count changes only
+        }
+    }, [count]);
 
     return (
         <div>
